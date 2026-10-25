@@ -1,7 +1,10 @@
-dataset/
+Merged-Dataset-2class/
+Damage-Package-Detection/
+Package-Computer-Vision/
+Merged-Dataset/
 runs/
 *.pt
 *.pth
-__pychache__/
+__pycache__/
 .vscode/
 venv/
