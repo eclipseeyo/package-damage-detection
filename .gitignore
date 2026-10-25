@@ -1,0 +1,7 @@
+dataset/
+runs/
+*.pt
+*.pth
+__pychache__/
+.vscode/
+venv/
