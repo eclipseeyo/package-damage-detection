@@ -15,7 +15,7 @@
 1. Damage Package Detection (5 классов). Ссылка: https://universe.roboflow.com/bhagyashri-biradar/damage-package-detection/dataset/5
 2. Package Computer Vision (2 класса). Ссылка: https://universe.roboflow.com/deteksipaketrusak/package-kglu1/dataset/2
 
-## Анализ данных (EDA)
+## Анализ данных
 В ходе исследования исходных датасетов были выявлены следующие особенности:
 1. Разные условия съемки. Первый датасет содержит цветные изображения с разным освещением. Второй датасет состоит из черно-белых фотографий.
 2. Мультиракурсность. Второй датасет содержит серии фотографий одних и тех же объектов с разных ракурсов, что создает риск переобучения модели на внешний вид конкретных посылок.
@@ -48,8 +48,8 @@
 Модель, обученная на объединенном датасете (100 эпох, цветные + ЧБ фото), показала mAP50 = 0.794 и Recall = 0.555. Это доказывает, что объединение разнородных данных не ухудшило качество, а сделало модель более устойчивой к разным условиям съемки, что критически важно для реального продакшена.
 
 ## Анализ ошибок и переобучение
-[Здесь будет скриншот confusion_matrix_normalized.png из папки runs/detect/2class_final-5]
-[Здесь будет скриншот results.png из папки runs/detect/2class_final-5]
+<img width="3000" height="2250" alt="confusion_matrix_normalized" src="https://github.com/user-attachments/assets/6cfe73a2-4924-4af3-8e78-db027acabcf4" />
+<img width="2400" height="1200" alt="results" src="https://github.com/user-attachments/assets/a4d79fa9-3cb5-4c4f-8b89-a485f6f5e1f2" />
 
 По графикам потерь (val/box_loss, val/cls_loss) видно, что после ~60-й эпохи модель начинает переобучаться: потери на валидации перестают падать, а метрики mAP50 и Recall выходят на плато. Это говорит о том, что модель достигла предела для текущего объема данных.
 
@@ -60,6 +60,15 @@
 - 8% ложных срабатываний (когда целая посылка помечается как поврежденная).
 
 Для дальнейшего улучшения модели (снижения False Negatives) необходимо добавить больше размеченных данных с мелкими повреждениями, а также применить аугментации, имитирующие разные условия освещения и съемки.
+
+## Примеры работы модели
+
+Ниже представлены примеры предсказаний финальной модели на валидационной выборке. Модель выделяет целые посылки (package) и повреждения (damaged).
+
+<img width="640" height="640" alt="new_thumb-9-_jpg rf 4cd921112867120f8c5f237ae5367c64" src="https://github.com/user-attachments/assets/192cbc4b-a01f-405e-ade6-81fad783a6bf" />
+<img width="640" height="640" alt="new_thumb-2025-06-22T212247_730_jpg rf 6df476cf760f6dee9faf81a8651eca9a" src="https://github.com/user-attachments/assets/54b54a11-a948-41b1-80fc-910b605c8e14" />
+<img width="640" height="640" alt="new_WhatsApp-Image-2025-06-27-at-13_58_59_jpeg rf 89054d5f6eb265ac4a022f558fd73d78" src="https://github.com/user-attachments/assets/b2b38d92-697c-4a86-a5a8-67a7c01af967" />
+<img width="640" height="640" alt="old_damage5_jpg rf 3e853e7441351f03fc516213c46523ef" src="https://github.com/user-attachments/assets/07b2896e-5865-4e92-9e5f-b056d7d14b02" />
 
 ## Выводы
 
